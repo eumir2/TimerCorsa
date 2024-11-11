@@ -22,7 +22,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/attività"
+                android:id="@+id/attivita"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -67,7 +67,8 @@
         android:text="INIZIA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/volte" />
+        app:layout_constraintTop_toBottomOf="@+id/volte"
+        android:onClick="timer"/>
 
     <EditText
         android:id="@+id/volte"
@@ -80,6 +81,18 @@
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+    <EditText
+        android:id="@+id/tempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:ems="10"
+        android:inputType="time"
+        app:layout_constraintBottom_toTopOf="@+id/INIZIA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/volte"
+        app:layout_constraintVertical_bias="0.493" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
