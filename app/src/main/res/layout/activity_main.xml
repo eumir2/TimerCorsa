@@ -94,5 +94,16 @@
         app:layout_constraintTop_toBottomOf="@+id/volte"
         app:layout_constraintVertical_bias="0.493" />
 
+    <TextView
+        android:id="@+id/current"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="48dp"
+        android:text="In corso"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/INIZIA"
+        app:layout_constraintEnd_toStartOf="@+id/tempo" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

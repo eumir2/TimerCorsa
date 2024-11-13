@@ -2,12 +2,14 @@ package com.example.timercorsa
 
 import android.app.Activity
 import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 
@@ -16,7 +18,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main)
 
 
     }
@@ -26,12 +28,21 @@ class MainActivity : ComponentActivity() {
 
         val recupero = a.findViewById<EditText>(R.id.recupero).text.toString().toLong()
         val attivita = a.findViewById<EditText>(R.id.attivita).text.toString().toLong()
-        val volte = a.findViewById<EditText>(R.id.volte).text.toString().toInt()
+        val counter = a.findViewById<EditText>(R.id.volte)
+        val volte = counter.text.toString().toInt()
+        val current = a.findViewById<TextView>(R.id.current)
 
         val tempo = a.findViewById<EditText>(R.id.tempo)
 
-        val sound = RingtoneManager.getRingtone(a.applicationContext, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-        val attivitaSound = RingtoneManager.getRingtone(a.applicationContext, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
+        val corsaUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.run)
+        val recuperoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.recupero)
+        val completeUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.finish)
+
+
+        val run = RingtoneManager.getRingtone(a.applicationContext, corsaUri)
+        val rest = RingtoneManager.getRingtone(a.applicationContext, recuperoUri)
+        val complete = RingtoneManager.getRingtone(a.applicationContext, completeUri)
+        //val attivitaSound = RingtoneManager.getRingtone(a.applicationContext, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
 
         val handler = Handler(Looper.getMainLooper())
         var currentCycle = 0
@@ -44,33 +55,45 @@ class MainActivity : ComponentActivity() {
                 }
 
                 override fun onFinish() {
-                    attivitaSound.play()
+                    rest.play()
+                    current.setText("Recupero")
                     startRecuperoTimer()
+                }
+
+                //Funzione per gestire il timer del recupero.
+                private fun startRecuperoTimer() {
+                    val recuperoTimer = object : CountDownTimer(recupero * 1000, 1000) {
+                        override fun onTick(millisUntilFinished: Long) {
+                            tempo.setText(formatMillisToMinutesSeconds(millisUntilFinished))
+                        }
+
+                        override fun onFinish() {
+                            currentCycle++
+                            if (currentCycle < volte) {
+                                current.setText("Attività")
+                                counter.setText((volte-currentCycle).toString())
+                                run.play()
+                                handler.postDelayed({ startAttivitaTimer() }, 5000) // Aspetta 3 secondi prima di avviare il timer di attività
+                            }else{
+                                counter.setText("Finish!!!")
+                                complete.play()
+                            }
+                        }
+                    }
+                    recuperoTimer.start()
                 }
             }
             attivitaTimer.start()
         }
 
-        // Funzione per gestire il timer di recupero
-        fun startRecuperoTimer() {
-            val recuperoTimer = object : CountDownTimer(recupero * 1000, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-                    tempo.setText(formatMillisToMinutesSeconds(millisUntilFinished))
-                }
-
-                override fun onFinish() {
-                    sound.play()
-                    currentCycle++
-                    if (currentCycle < volte) {
-                        handler.postDelayed({ startAttivitaTimer() }, 1000) // Aspetta un secondo prima di avviare il timer di attività
-                    }
-                }
-            }
-            recuperoTimer.start()
-        }
-
         // Inizia il primo ciclo con il timer di attività
-        startAttivitaTimer()
+        current.setText("Attività")
+        run.play()
+        handler.postDelayed({
+            startAttivitaTimer()}, 5000)
+
+
+
     }
 
 
