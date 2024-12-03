@@ -79,6 +79,7 @@ class MainActivity : ComponentActivity() {
                                 handler.postDelayed({ startAttivitaTimer() }, 5000) // Aspetta 5 secondi prima di avviare il timer di attività
                             }else{
                                 counter.setText("Finish!!!")
+                                current.setText("Finish!!!")
                                 soundPlayer.playSound(completeUri)
                             }
                         }

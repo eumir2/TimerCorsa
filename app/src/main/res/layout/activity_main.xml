@@ -11,7 +11,7 @@
         android:id="@+id/tableLayout"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,8 +24,8 @@
                 android:id="@+id/attivita"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Corsa"
                 android:ems="7"
+                android:hint="CORSA"
                 android:inputType="number" />
 
             <EditText
@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="7"
-                android:hint="Recupero"
+                android:hint="RECUPERO"
                 android:inputType="number" />
 
         </TableRow>
@@ -45,26 +45,27 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="x"
                 android:layout_span="2"
+                android:text="x"
                 android:textAlignment="center"
                 android:textSize="48sp" />
         </TableRow>
 
         <TableRow>
+
             <EditText
                 android:id="@+id/volte"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
-                android:hint="Volte"
+                android:hint="VOLTE"
                 android:inputType="number"
                 android:textAlignment="center"
-                android:ems="7"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
         </TableRow>
@@ -78,33 +79,38 @@
         android:backgroundTint="#E91E63"
         android:onClick="timer"
         android:text="INIZIA"
-        app:layout_constraintBaseline_toBottomOf="@id/tableLayout"
+        android:textSize="40sp"
+        app:layout_constraintTop_toBottomOf="@id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="260dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/tempo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:ems="10"
+        android:layout_marginTop="4dp"
         android:inputType="time"
+        android:textAllCaps="true"
+        android:textSize="60dp"
+        android:letterSpacing="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
+        android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/INIZIA"
-        app:layout_constraintVertical_bias="0.493" />
+        app:layout_constraintTop_toBottomOf="@+id/current" />
 
     <TextView
         android:id="@+id/current"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="48dp"
-        android:text="In corso"
-        android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@id/tempo"
-        app:layout_constraintEnd_toStartOf="@+id/tempo"/>
+        android:layout_marginTop="108dp"
+        android:text="IN CORSO"
+        android:textAllCaps="true"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/INIZIA"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
