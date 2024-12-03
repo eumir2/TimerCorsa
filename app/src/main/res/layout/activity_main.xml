@@ -10,10 +10,9 @@
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,15 +24,15 @@
                 android:id="@+id/attivita"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:ems="10"
                 android:hint="Corsa"
+                android:ems="7"
                 android:inputType="number" />
 
             <EditText
                 android:id="@+id/recupero"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:ems="10"
+                android:ems="7"
                 android:hint="Recupero"
                 android:inputType="number" />
 
@@ -41,19 +40,33 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="20dp">
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        </TableRow>
 
+        <TableRow>
             <TextView
                 android:id="@+id/text"
-                android:layout_width="35dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:text="x"
+                android:layout_span="2"
+                android:textAlignment="center"
                 android:textSize="48sp" />
+        </TableRow>
+
+        <TableRow>
+            <EditText
+                android:id="@+id/volte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:hint="Volte"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:ems="7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
         </TableRow>
 
     </TableLayout>
@@ -62,25 +75,14 @@
         android:id="@+id/INIZIA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
         android:backgroundTint="#E91E63"
+        android:onClick="timer"
         android:text="INIZIA"
+        app:layout_constraintBaseline_toBottomOf="@id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/volte"
-        android:onClick="timer"/>
-
-    <EditText
-        android:id="@+id/volte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="68dp"
-        android:ems="10"
-        android:hint="Volte"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+        tools:layout_editor_absoluteY="260dp" />
 
     <EditText
         android:id="@+id/tempo"
@@ -89,9 +91,8 @@
         android:layout_marginStart="100dp"
         android:ems="10"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/INIZIA"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/volte"
+        app:layout_constraintTop_toBottomOf="@id/INIZIA"
         app:layout_constraintVertical_bias="0.493" />
 
     <TextView
@@ -102,8 +103,8 @@
         android:layout_marginBottom="48dp"
         android:text="In corso"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/INIZIA"
-        app:layout_constraintEnd_toStartOf="@+id/tempo" />
+        app:layout_constraintBaseline_toBaselineOf="@id/tempo"
+        app:layout_constraintEnd_toStartOf="@+id/tempo"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

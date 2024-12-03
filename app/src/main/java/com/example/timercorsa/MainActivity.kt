@@ -1,7 +1,7 @@
 package com.example.timercorsa
 
+import SoundPlayer
 import android.app.Activity
-import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
         val recupero = a.findViewById<EditText>(R.id.recupero).text.toString().toLong()
         val attivita = a.findViewById<EditText>(R.id.attivita).text.toString().toLong()
         val counter = a.findViewById<EditText>(R.id.volte)
+        counter.isEnabled = false
         val volte = counter.text.toString().toInt()
         val current = a.findViewById<TextView>(R.id.current)
 
@@ -38,12 +39,14 @@ class MainActivity : ComponentActivity() {
         val recuperoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.recupero)
         val completeUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.finish)
 
+        val soundPlayer = SoundPlayer(v.context)
 
+        /*
         val run = RingtoneManager.getRingtone(a.applicationContext, corsaUri)
         val rest = RingtoneManager.getRingtone(a.applicationContext, recuperoUri)
         val complete = RingtoneManager.getRingtone(a.applicationContext, completeUri)
         //val attivitaSound = RingtoneManager.getRingtone(a.applicationContext, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
-
+        */
         val handler = Handler(Looper.getMainLooper())
         var currentCycle = 0
 
@@ -55,7 +58,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 override fun onFinish() {
-                    rest.play()
+                    soundPlayer.playSound(recuperoUri)
                     current.setText("Recupero")
                     startRecuperoTimer()
                 }
@@ -72,11 +75,11 @@ class MainActivity : ComponentActivity() {
                             if (currentCycle < volte) {
                                 current.setText("Attività")
                                 counter.setText((volte-currentCycle).toString())
-                                run.play()
-                                handler.postDelayed({ startAttivitaTimer() }, 5000) // Aspetta 3 secondi prima di avviare il timer di attività
+                                soundPlayer.playSound(corsaUri)
+                                handler.postDelayed({ startAttivitaTimer() }, 5000) // Aspetta 5 secondi prima di avviare il timer di attività
                             }else{
                                 counter.setText("Finish!!!")
-                                complete.play()
+                                soundPlayer.playSound(completeUri)
                             }
                         }
                     }
@@ -88,7 +91,7 @@ class MainActivity : ComponentActivity() {
 
         // Inizia il primo ciclo con il timer di attività
         current.setText("Attività")
-        run.play()
+        soundPlayer.playSound(corsaUri)
         handler.postDelayed({
             startAttivitaTimer()}, 5000)
 
@@ -96,7 +99,7 @@ class MainActivity : ComponentActivity() {
 
     }
 
-
+    //formattazione dei millisecondi in formato HH:MM:SS
     fun formatMillisToMinutesSeconds(millis: Long): String {
         val seconds = millis / 1000
         val minutes = seconds / 60
