@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="corsa">#ff5400</color>
+    <color name="riposo">#390099</color>
+    <color name="finish">#ffbd00</color>
+
 </resources>

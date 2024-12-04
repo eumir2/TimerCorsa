@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
+import androidx.core.content.ContextCompat
 
 
 class MainActivity : ComponentActivity() {
@@ -24,6 +25,10 @@ class MainActivity : ComponentActivity() {
     }
 
     fun timer(v: View) {
+        val rootView: View = findViewById(android.R.id.content)
+        val corsaColor = ContextCompat.getColor(this, R.color.corsa)
+        val recuperoColor = ContextCompat.getColor(this, R.color.riposo)
+        val finishColor = ContextCompat.getColor(this, R.color.finish)
         val a: Activity = v.context as Activity
 
         val recupero = a.findViewById<EditText>(R.id.recupero).text.toString().toLong()
@@ -60,7 +65,10 @@ class MainActivity : ComponentActivity() {
                 override fun onFinish() {
                     soundPlayer.playSound(recuperoUri)
                     current.setText("Recupero")
-                    startRecuperoTimer()
+
+                    // Set the background color programmatically
+                    rootView.setBackgroundColor(recuperoColor)
+                    handler.postDelayed({ startRecuperoTimer() }, 5000)
                 }
 
                 //Funzione per gestire il timer del recupero.
@@ -76,10 +84,12 @@ class MainActivity : ComponentActivity() {
                                 current.setText("Attività")
                                 counter.setText((volte-currentCycle).toString())
                                 soundPlayer.playSound(corsaUri)
+                                rootView.setBackgroundColor(corsaColor)
                                 handler.postDelayed({ startAttivitaTimer() }, 5000) // Aspetta 5 secondi prima di avviare il timer di attività
                             }else{
                                 counter.setText("Finish!!!")
                                 current.setText("Finish!!!")
+                                rootView.setBackgroundColor(finishColor)
                                 soundPlayer.playSound(completeUri)
                             }
                         }
@@ -93,6 +103,7 @@ class MainActivity : ComponentActivity() {
         // Inizia il primo ciclo con il timer di attività
         current.setText("Attività")
         soundPlayer.playSound(corsaUri)
+        rootView.setBackgroundColor(corsaColor)
         handler.postDelayed({
             startAttivitaTimer()}, 5000)
 
